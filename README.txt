@@ -1,0 +1,1 @@
+An alternative to the C++ STL, highly based of the Outsourced Utils library.

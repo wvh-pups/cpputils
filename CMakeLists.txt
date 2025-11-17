@@ -21,6 +21,8 @@ include_directories(include)
 add_library(c++utils SHARED
         src/shared.cpp
         include/utils/shared.hpp
+        src/vector.cpp
+        include/utils/vector.hpp
 )
 
 add_executable(c++utils_test
