@@ -9,6 +9,10 @@ namespace utl
 	// uses malloc() function under the hood
 	void* heap(unsigned long long size);
 
+	// frees the allocated memory by utl::heap()
+	// uses free() function under the hood
+	void ufree(void* data);
+
 	// automatic pointer with self cleanup
 	// this class assumes that this is not a pointer to the array of some kind
 	// for array pointers use utl::array or utl::multi_array
@@ -25,11 +29,14 @@ namespace utl
 			m_ptr = new T[1];
 		}
 
-		ptr(const T* ptr)
+		explicit ptr(const T* ptr)
 		{
-			T* new_ptr = new T[*ptr];
+			m_ptr = new T[*ptr];
+		}
 
-			m_ptr = new_ptr;
+		explicit ptr(const T data)
+		{
+			m_ptr = new T[&data];
 		}
 
 		ptr(const ptr& other)
@@ -49,7 +56,7 @@ namespace utl
 			delete m_ptr;
 		}
 
-		operator T*()
+		explicit operator T*()
 		{
 			return m_ptr;
 		}
@@ -123,9 +130,15 @@ namespace utl
 		}
 
 		// this actually should not be an explicit constructor, because it is a STL library implementation after all
-		weak_ptr(const T* ptr)
+		explicit weak_ptr(const T* ptr)
 		{
 			m_ptr = new T[*ptr];
+		}
+
+		// a constructor that copies the data on the stack
+		weak_ptr(const T data)
+		{
+			m_ptr = new T[&data];
 		}
 
 		weak_ptr(const weak_ptr& other)
@@ -142,7 +155,7 @@ namespace utl
 		~weak_ptr() = default;
 
 		// conversion operator
-		operator T*()
+		explicit operator T*()
 		{
 			return m_ptr;
 		}

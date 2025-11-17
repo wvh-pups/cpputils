@@ -1,5 +1,6 @@
 #include <iostream>
 
+#include "src/memory.hpp"
 #include "utils/vector.hpp"
 #include "utils/string.hpp"
 
@@ -147,10 +148,46 @@ int test_string()
 	RETURN_RESULT(result);
 }
 
+int test_memory()
+{
+	void* memory = utl::heap(sizeof(int) * 5);
+
+	UtilsTesterResult result("memory");
+
+	utl::ufree(memory);
+
+	utl::weak_ptr<int> weak_ptr(new int(45));
+
+	if (weak_ptr.valid())
+	{
+		result = 1;
+	}
+	else
+	{
+		result = 0;
+	}
+
+	weak_ptr.destroy();
+
+	utl::ptr<int> ptr(new int(3));
+
+	if (ptr.valid())
+	{
+		result = 1;
+	}
+	else
+	{
+		result = 0;
+	}
+
+	RETURN_RESULT(result);
+}
+
 int main()
 {
 	PRINT("Testing c++ utils...");
 
 	ADD_TEST(vector);
 	ADD_TEST(string);
+	ADD_TEST(memory);
 }
