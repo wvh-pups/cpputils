@@ -23,13 +23,15 @@ add_library(c++utils SHARED
         include/utils/shared.hpp
         src/vector.cpp
         include/utils/vector.hpp
+        src/string.cpp
+        include/utils/string.hpp
 )
 
 add_executable(c++utils_test
     test.cpp
 )
 
-target_link_libraries(c++utils_test c++utils)
+target_link_libraries(c++utils_test c++utils "-Wl,-allow-multiple-definition")
 
 if(CMAKE_BUILD_TYPE STREQUAL "Debug")
     target_compile_definitions(c++utils_test PRIVATE DEBUG=1)

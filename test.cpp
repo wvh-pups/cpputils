@@ -1,6 +1,15 @@
 #include <iostream>
 
 #include "utils/vector.hpp"
+#include "utils/string.hpp"
+
+// could have went with the implicit int converter, but whatever
+// use this at the end of the test
+#define RETURN_RESULT(object) return static_cast<int>(object)
+
+// adds a test to run
+// use this in the main function
+#define ADD_TEST(name) run_test(test_ ## name, #name)
 
 unsigned int test_count = 1;
 
@@ -107,12 +116,38 @@ int test_vector()
 		result = 0;
 	}
 
-	return static_cast<int>(result);
+	RETURN_RESULT(result);
+}
+
+int test_string()
+{
+	UtilsTesterResult result("string");
+
+	utl::string string = "Hello, World! %d";
+
+	if (string == "Hello, World! %d")
+	{
+		result = 1;
+	}
+
+	std::cout << "TEST string: " << string.c_str() << " LENGTH: " << string.length() << std::endl;
+
+	utl::string string2 = utl::string::strfmt(string, 45);
+
+	if (string2 == "Hello, World! 45")
+	{
+		result = 1;
+	}
+
+	std::cout << "TEST string2: " << string2.c_str() << " LENGTH: " << string.length() << std::endl;
+
+	RETURN_RESULT(result);
 }
 
 int main()
 {
 	std::cout << "Testing c++ utils..." << std::endl;
 
-	run_test(test_vector, "vector");
+	ADD_TEST(vector);
+	ADD_TEST(string);
 }
