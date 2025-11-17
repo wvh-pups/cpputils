@@ -4,6 +4,8 @@
 #include <cstdlib>
 #include <cstring>
 
+#include <iostream>
+
 using namespace utl;
 
 unsigned int utl::ustrlen(const char* str)
@@ -26,6 +28,13 @@ string utl::operator+(const string& left, const string& right)
 	delete[] buffer;
 
 	return str;
+}
+
+std::ostream& utl::operator<<(std::ostream& stream, const string& string)
+{
+	stream << string.m_str;
+
+	return stream;
 }
 
 string::string() : m_str(nullptr)

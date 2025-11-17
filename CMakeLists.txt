@@ -25,6 +25,8 @@ add_library(c++utils SHARED
         include/utils/vector.hpp
         src/string.cpp
         include/utils/string.hpp
+        src/memory.cpp
+        src/memory.hpp
 )
 
 add_executable(c++utils_test

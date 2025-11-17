@@ -11,6 +11,9 @@
 // use this in the main function
 #define ADD_TEST(name) run_test(test_ ## name, #name)
 
+// prints something using the iostream
+#define PRINT(str) std::cout << str << std::endl
+
 unsigned int test_count = 1;
 
 typedef int (*test_t)();
@@ -54,7 +57,7 @@ struct UtilsTesterResult
 		test_name = "NULL";
 	}
 
-	explicit UtilsTesterResult(const char* name)
+	UtilsTesterResult(const char* name)
 	{
 		test_name = name;
 		result = 0;
@@ -130,7 +133,7 @@ int test_string()
 		result = 1;
 	}
 
-	std::cout << "TEST string: " << string.c_str() << " LENGTH: " << string.length() << std::endl;
+	std::cout << "TEST string: " << string << " LENGTH: " << string.length() << std::endl;
 
 	utl::string string2 = utl::string::strfmt(string, 45);
 
@@ -139,14 +142,14 @@ int test_string()
 		result = 1;
 	}
 
-	std::cout << "TEST string2: " << string2.c_str() << " LENGTH: " << string.length() << std::endl;
+	std::cout << "TEST string2: " << string2 << " LENGTH: " << string.length() << std::endl;
 
 	RETURN_RESULT(result);
 }
 
 int main()
 {
-	std::cout << "Testing c++ utils..." << std::endl;
+	PRINT("Testing c++ utils...");
 
 	ADD_TEST(vector);
 	ADD_TEST(string);

@@ -1,6 +1,7 @@
 #pragma once
 
 #include <cstdio>
+#include <iosfwd>
 
 namespace utl
 {
@@ -18,7 +19,7 @@ namespace utl
 		return result_string;
 	}
 
-	// string class bro
+	// string class, terminated with null character
 	class string
 	{
 
@@ -26,6 +27,10 @@ namespace utl
 
 		// concatenates two strings together
 		friend string operator+(const string& left, const string& right);
+
+		// std::cout << string << std::endl;
+		// without even using c_str() method!
+		friend std::ostream& operator<<(std::ostream& stream, const string& string);
 
 	public:
 
