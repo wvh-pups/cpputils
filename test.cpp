@@ -1,6 +1,5 @@
 #include <iostream>
 
-#include "utils/shared.hpp"
 #include "utils/vector.hpp"
 
 unsigned int test_count = 1;
@@ -35,6 +34,43 @@ void run_test(test_t test, const char* id)
 	}
 }
 
+struct UtilsTesterResult
+{
+	int result;
+	const char* test_name;
+
+	UtilsTesterResult()
+	{
+		result = 0;
+		test_name = "NULL";
+	}
+
+	explicit UtilsTesterResult(const char* name)
+	{
+		test_name = name;
+		result = 0;
+	}
+
+	explicit operator int() const
+	{
+		return result;
+	}
+
+	UtilsTesterResult& operator=(const int new_result)
+	{
+		if (new_result != 1)
+		{
+			test_failed(test_name);
+
+			exit(0);
+		}
+
+		this->result = new_result;
+
+		return *this;
+	}
+};
+
 int test_vector()
 {
 	utl::vector<int> vector = utl::vector<int>();
@@ -42,35 +78,36 @@ int test_vector()
 	vector.push_back(35);
 	vector.push_back(25);
 
-	int result = 0;
+	UtilsTesterResult result("vector");
 
 	int i = 0;
-	for (int element : vector)
+	for (const int element : vector)
 	{
 		if (i == 0)
 		{
 			result = element == 35;
-
-			if (result == 0)
-			{
-				return result;
-			}
 		}
 
 		if (i == 1)
 		{
 			result = element == 25;
-
-			if (result == 0)
-			{
-				return result;
-			}
 		}
 
 		i++;
 	}
 
-	return result;
+	vector.pop_back();
+
+	result = vector[0] == 35;
+
+	vector.clear();
+
+	for (const auto element: vector)
+	{
+		result = 0;
+	}
+
+	return static_cast<int>(result);
 }
 
 int main()
