@@ -26,7 +26,7 @@ add_library(c++utils SHARED
         src/string.cpp
         include/utils/string.hpp
         src/memory.cpp
-        src/memory.hpp
+        include/utils/memory.hpp
 )
 
 add_executable(c++utils_test

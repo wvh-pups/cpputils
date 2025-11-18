@@ -1,6 +1,6 @@
 #include <iostream>
 
-#include "src/memory.hpp"
+#include "include/utils/memory.hpp"
 #include "utils/vector.hpp"
 #include "utils/string.hpp"
 
