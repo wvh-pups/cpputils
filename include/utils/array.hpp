@@ -1,5 +1,7 @@
 #pragma once
 
+#include <initializer_list>
+
 /* returns the length of the array
 * usage:
 * int array[4] = { 45, 10, 25, 25 };
@@ -27,7 +29,7 @@ namespace utl
 			m_data = new T[m_size];
 		}
 
-		array(T (&arr)[S])
+		array(T arr[])
 		{
 			if (UARRLEN(arr) != m_size)
 			{
@@ -69,7 +71,7 @@ namespace utl
 			delete[] m_data;
 		}
 
-		array& operator=(T (&arr)[S])
+		array& operator=(T arr[])
 		{
 			delete[] this->m_data;
 

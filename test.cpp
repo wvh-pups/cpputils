@@ -193,7 +193,7 @@ int test_memory()
 DECLARE_TEST(array)
 	int debug_array[5] = { 25, 35, 0, 50, 15 };
 
-	utl::array<int, 5> array;
+	utl::array<int, 5> array();
 
 	array[0] = 25;
 	array[1] = 35;
