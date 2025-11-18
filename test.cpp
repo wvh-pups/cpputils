@@ -167,9 +167,13 @@ int test_memory()
 		result = 0;
 	}
 
+	std::cout << "TEST weak_ptr value: " << *weak_ptr << std::endl;
+
 	weak_ptr.destroy();
 
-	utl::ptr<int> ptr(new int(3));
+	utl::ptr<float> ptr(new float(3.5f));
+
+	std::cout << "TEST ptr value: " << *ptr << std::endl;
 
 	if (ptr.valid())
 	{

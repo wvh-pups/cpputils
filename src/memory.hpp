@@ -31,17 +31,17 @@ namespace utl
 
 		explicit ptr(const T* ptr)
 		{
-			m_ptr = new T[*ptr];
+			m_ptr = new T(*ptr);
 		}
 
-		explicit ptr(const T data)
+		explicit ptr(const T& data)
 		{
-			m_ptr = new T[&data];
+			m_ptr = new T(data);
 		}
 
 		ptr(const ptr& other)
 		{
-			T* new_ptr = new T[*other.m_ptr];
+			T* new_ptr = new T(*other.m_ptr);
 
 			m_ptr = new_ptr;
 		}
@@ -61,6 +61,11 @@ namespace utl
 			return m_ptr;
 		}
 
+		T& operator*()
+		{
+			return *m_ptr;
+		}
+
 		ptr& operator=(const ptr& other)
 		{
 			if (this == &other)
@@ -70,7 +75,7 @@ namespace utl
 
 			delete m_ptr;
 
-			T* new_ptr = new T[*other.m_ptr];
+			T* new_ptr = new T(*other.m_ptr);
 
 			this->m_ptr = new_ptr;
 
@@ -132,18 +137,18 @@ namespace utl
 		// this actually should not be an explicit constructor, because it is a STL library implementation after all
 		explicit weak_ptr(const T* ptr)
 		{
-			m_ptr = new T[*ptr];
+			m_ptr = new T(*ptr);
 		}
 
 		// a constructor that copies the data on the stack
-		weak_ptr(const T data)
+		weak_ptr(const T& data)
 		{
-			m_ptr = new T[&data];
+			m_ptr = new T(&data);
 		}
 
 		weak_ptr(const weak_ptr& other)
 		{
-			m_ptr = new T[*other.m_ptr];
+			m_ptr = new T(*other.m_ptr);
 		}
 
 		weak_ptr(weak_ptr&& other) noexcept
@@ -160,6 +165,11 @@ namespace utl
 			return m_ptr;
 		}
 
+		T& operator*()
+		{
+			return *m_ptr;
+		}
+
 		weak_ptr& operator=(const weak_ptr& other)
 		{
 			if (this == &other)
@@ -169,7 +179,7 @@ namespace utl
 
 			delete m_ptr;
 
-			this->m_ptr = new T[*other.m_ptr];
+			this->m_ptr = new T(*other.m_ptr);
 
 			return *this;
 		}
