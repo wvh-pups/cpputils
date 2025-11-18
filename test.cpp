@@ -1,8 +1,9 @@
 #include <iostream>
 
-#include "include/utils/memory.hpp"
+#include "utils/memory.hpp"
 #include "utils/vector.hpp"
 #include "utils/string.hpp"
+#include "utils/array.hpp"
 
 // could have went with the implicit int converter, but whatever
 // use this at the end of the test
@@ -187,6 +188,44 @@ int test_memory()
 	RETURN_RESULT(result);
 }
 
+int test_array()
+{
+	UtilsTesterResult result("array");
+
+	int debug_array[5] = { 25, 35, 0, 50, 15 };
+
+	utl::array<int, 5> array;
+
+	array[0] = 25;
+	array[1] = 35;
+	array[2] = 0;
+	array[3] = 50;
+	array[4] = 15;
+
+	std::cout << "TEST array contents: ";
+
+	int i = 0;
+	for (const auto& element : array)
+	{
+		std::cout << element << " ";
+
+		if (element != debug_array[i])
+		{
+			result = 0;
+		}
+		else
+		{
+			result = 1;
+		}
+
+		i++;
+	}
+
+	std::cout << std::endl;
+
+	RETURN_RESULT(result);
+}
+
 int main()
 {
 	PRINT("Testing c++ utils...");
@@ -194,4 +233,5 @@ int main()
 	ADD_TEST(vector);
 	ADD_TEST(string);
 	ADD_TEST(memory);
+	ADD_TEST(array);
 }
