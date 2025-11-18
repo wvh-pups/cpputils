@@ -5,9 +5,15 @@
 #include "utils/string.hpp"
 #include "utils/array.hpp"
 
+// declares a new test
+#define DECLARE_TEST(name) int test_ ## name() \
+	{ \
+	UtilsTesterResult result(#name);
+
 // could have went with the implicit int converter, but whatever
 // use this at the end of the test
-#define RETURN_RESULT(object) return static_cast<int>(object)
+#define END_TEST(object) return static_cast<int>(object); \
+	}
 
 // adds a test to run
 // use this in the main function
@@ -121,8 +127,7 @@ int test_vector()
 		result = 0;
 	}
 
-	RETURN_RESULT(result);
-}
+	END_TEST(result)
 
 int test_string()
 {
@@ -146,8 +151,7 @@ int test_string()
 
 	std::cout << "TEST string2: " << string2 << " LENGTH: " << string.length() << std::endl;
 
-	RETURN_RESULT(result);
-}
+	END_TEST(result)
 
 int test_memory()
 {
@@ -184,14 +188,9 @@ int test_memory()
 	{
 		result = 0;
 	}
+		END_TEST(result)
 
-	RETURN_RESULT(result);
-}
-
-int test_array()
-{
-	UtilsTesterResult result("array");
-
+DECLARE_TEST(array)
 	int debug_array[5] = { 25, 35, 0, 50, 15 };
 
 	utl::array<int, 5> array;
@@ -222,9 +221,7 @@ int test_array()
 	}
 
 	std::cout << std::endl;
-
-	RETURN_RESULT(result);
-}
+END_TEST(result)
 
 int main()
 {
