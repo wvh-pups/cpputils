@@ -227,6 +227,15 @@ DECLARE_TEST(array)
 		i++;
 	}
 
+	utl::array_2d<float, 3, 3> two_dimensional_array;
+
+	two_dimensional_array[2][1] = 5.0f;
+
+	if (two_dimensional_array[2][1] != 5.0f)
+	{
+		result = 0;
+	}
+
 	std::cout << std::endl;
 END_TEST(result)
 
