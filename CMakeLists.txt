@@ -29,6 +29,8 @@ add_library(c++utils SHARED
         include/utils/memory.hpp
         src/array.cpp
         include/utils/array.hpp
+        src/logger.cpp
+        include/utils/logger.hpp
 )
 
 add_executable(c++utils_test

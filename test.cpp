@@ -1,9 +1,13 @@
 #include <iostream>
 
+#include <chrono>
+#include <thread>
+
 #include "utils/memory.hpp"
 #include "utils/vector.hpp"
 #include "utils/string.hpp"
 #include "utils/array.hpp"
+#include "utils/logger.hpp"
 
 // declares a new test
 #define DECLARE_TEST(name) int test_ ## name() \
@@ -21,6 +25,9 @@
 
 // prints something using the iostream
 #define PRINT(str) std::cout << str << std::endl
+
+// waits for specified amount of time
+#define WAIT(time) std::this_thread::sleep_for(std::chrono::seconds(time));
 
 unsigned int test_count = 1;
 
@@ -129,9 +136,7 @@ int test_vector()
 
 	END_TEST(result)
 
-int test_string()
-{
-	UtilsTesterResult result("string");
+DECLARE_TEST(string)
 
 	utl::string string = "Hello, World! %d";
 
@@ -151,7 +156,7 @@ int test_string()
 
 	std::cout << "TEST string2: " << string2 << " LENGTH: " << string.length() << std::endl;
 
-	END_TEST(result)
+END_TEST(result)
 
 int test_memory()
 {
@@ -188,23 +193,25 @@ int test_memory()
 	{
 		result = 0;
 	}
-		END_TEST(result)
+
+END_TEST(result)
 
 DECLARE_TEST(array)
-	int debug_array[5] = { 25, 35, 0, 50, 15 };
 
-	utl::array<int, 5> array();
+	const int debug_array[5] = { 25, 35, 0, 50, 15 };
 
-	array[0] = 25;
-	array[1] = 35;
-	array[2] = 0;
-	array[3] = 50;
-	array[4] = 15;
+	utl::array<int, 5> test_array;
+
+	test_array[0] = 25;
+	test_array[1] = 35;
+	test_array[2] = 0;
+	test_array[3] = 50;
+	test_array[4] = 15;
 
 	std::cout << "TEST array contents: ";
 
 	int i = 0;
-	for (const auto& element : array)
+	for (const auto& element : test_array)
 	{
 		std::cout << element << " ";
 
@@ -223,6 +230,24 @@ DECLARE_TEST(array)
 	std::cout << std::endl;
 END_TEST(result)
 
+DECLARE_TEST(logger)
+
+	PRINT("testing da logging functions");
+
+	utl::log("information", utl::Info);
+	WAIT(1);
+	utl::log("warning", utl::Warn);
+	WAIT(1);
+	utl::log("error", utl::Error);
+	WAIT(1);
+	utl::log("debug", utl::Debug);
+	WAIT(1);
+	utl::log("this is a very long string for testing, please be careful", utl::Debug);
+
+	result = 1;
+
+END_TEST(result)
+
 int main()
 {
 	PRINT("Testing c++ utils...");
@@ -231,4 +256,5 @@ int main()
 	ADD_TEST(string);
 	ADD_TEST(memory);
 	ADD_TEST(array);
+	ADD_TEST(logger);
 }
