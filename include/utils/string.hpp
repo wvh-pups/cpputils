@@ -49,6 +49,8 @@ namespace utl
 		string& operator=(const string& other);
 		string& operator=(string&& other) noexcept;
 
+		string& operator=(const std::string& other) noexcept;
+
 		// returns length of the string, without accounting for the terminating character
 		unsigned int length() const
 		{

@@ -4,6 +4,7 @@
 #include <cstdlib>
 #include <cstring>
 
+#include <string>
 #include <iostream>
 
 using namespace utl;
@@ -108,6 +109,17 @@ string& string::operator=(string&& other) noexcept
 {
 	this->m_str = other.m_str;
 	other.m_str = nullptr;
+
+	return *this;
+}
+
+string& string::operator=(const std::string& other) noexcept
+{
+	delete[] m_str;
+
+	this->m_str = new char[ustrlen(other.c_str()) + 1];
+	strcpy(m_str, other.c_str());
+	this->m_str[ustrlen(other.c_str())] = '\0';
 
 	return *this;
 }
