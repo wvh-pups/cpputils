@@ -31,6 +31,8 @@ add_library(c++utils SHARED
         include/utils/array.hpp
         src/logger.cpp
         include/utils/logger.hpp
+        src/index.cpp
+        include/utils/index.hpp
 )
 
 add_executable(c++utils_test

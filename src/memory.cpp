@@ -1,5 +1,7 @@
 #include "utils/memory.hpp"
 
+#include <cstdlib>
+
 using namespace utl;
 
 void* utl::heap(unsigned long long size)

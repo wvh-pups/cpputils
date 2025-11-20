@@ -8,6 +8,10 @@
 #include "utils/string.hpp"
 #include "utils/array.hpp"
 #include "utils/logger.hpp"
+#include "utils/index.hpp"
+
+INDEXABLE_DECL(int)
+INDEXABLE_IMPL(int)
 
 // declares a new test
 #define DECLARE_TEST(name) int test_ ## name() \
@@ -257,6 +261,24 @@ DECLARE_TEST(logger)
 
 END_TEST(result)
 
+DECLARE_TEST(index)
+
+	int test_number = 25;
+	int_index_add(utl::Indexable_<int>(25, "test"));
+
+	auto* test_ptr = int_index_get("test");
+
+	if (test_ptr->GetPtr() != 25)
+	{
+		result = 0;
+	}
+	else
+	{
+		result = 1;
+	}
+
+END_TEST(result)
+
 int main()
 {
 	PRINT("Testing c++ utils...");
@@ -265,5 +287,6 @@ int main()
 	ADD_TEST(string);
 	ADD_TEST(memory);
 	ADD_TEST(array);
+	ADD_TEST(index);
 	ADD_TEST(logger);
 }
