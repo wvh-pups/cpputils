@@ -2,6 +2,8 @@ An alternative to the C++ STL, highly based of the Outsourced Utils library.
 
 Designed exclusively for me, but can be used by anyone.
 
+Has been tested to work on Windows, Linux and macOS.
+
 Compilation guide:
 
 This is a dependency-free (except some headers included with every compiler) library, compiled to dynamic library (DLL).
