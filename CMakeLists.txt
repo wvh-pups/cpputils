@@ -35,6 +35,8 @@ add_library(c++utils SHARED
         include/utils/index.hpp
 )
 
+target_include_directories (c++utils PUBLIC "${CMAKE_CURRENT_LIST_DIR}/include")
+
 add_executable(c++utils_test
     test.cpp
 )
