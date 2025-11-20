@@ -113,7 +113,7 @@ string& string::operator=(string&& other) noexcept
 	return *this;
 }
 
-string& string::operator=(const std::string& other) noexcept
+string& string::operator=(const std::string& other)
 {
 	delete[] m_str;
 
