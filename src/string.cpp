@@ -113,7 +113,7 @@ string& string::operator=(string&& other) noexcept
 	return *this;
 }
 
-string& string::operator=(const std::string& other)
+/* string& string::operator=(const std::string& other)
 {
 	delete[] m_str;
 
@@ -122,7 +122,7 @@ string& string::operator=(const std::string& other)
 	this->m_str[ustrlen(other.c_str())] = '\0';
 
 	return *this;
-}
+} */
 
 bool string::operator==(const string& other) const
 {
