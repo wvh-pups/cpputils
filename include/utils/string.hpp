@@ -14,7 +14,18 @@ namespace utl
 	template <typename... Args>
 	char* strfmt(const char* str, Args... args)
 	{
-		char* result_string = new char[ustrlen(str) * 5];
+		unsigned int length;
+
+		if (ustrlen(str) * 5 > 512)
+		{
+			length = ustrlen(str) * 5;
+		}
+		else
+		{
+			length = 512;
+		}
+
+		char* result_string = new char[length];
 		sprintf(result_string, str, args...);
 		return result_string;
 	}
@@ -67,7 +78,18 @@ namespace utl
 		template <typename... Args>
 		static string strfmt(const string& str, Args... args)
 		{
-			char* result_string = new char[ustrlen(str.c_str()) * 5];
+			unsigned int length;
+
+			if (ustrlen(str.c_str()) * 5 > 512)
+			{
+				length = ustrlen(str.c_str()) * 5;
+			}
+			else
+			{
+				length = 512;
+			}
+
+			char* result_string = new char[length];
 
 			sprintf(result_string, str.c_str(), args...);
 
