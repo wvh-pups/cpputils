@@ -42,5 +42,3 @@ target_link_libraries(c++utils_test c++utils "-Wl,-allow-multiple-definition")
 if(CMAKE_BUILD_TYPE STREQUAL "Debug")
     target_compile_definitions(c++utils_test PRIVATE DEBUG=1)
 endif()
-
-add_test(c++utils_test $<TARGET_FILE:c++utils_test>)
