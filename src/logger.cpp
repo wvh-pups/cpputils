@@ -14,11 +14,13 @@ const char* Logger_::s_dbg_prefix = "[DEBUG]";
 void utl::println(const char* str)
 {
 	printf("%s\n", str);
+	fflush(stdout);
 }
 
 void utl::println(const string& str)
 {
 	printf("%s\n", str.c_str());
+	fflush(stdout);
 }
 
 // Logger_ impl

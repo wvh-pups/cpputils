@@ -21,6 +21,8 @@ namespace utl
 
 		printf("%s\n", formatted_string);
 
+		fflush(stdout);
+
 		delete[] formatted_string;
 	}
 
