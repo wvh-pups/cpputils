@@ -3,6 +3,8 @@
 #include <chrono>
 #include <thread>
 
+#include <unordered_map>
+
 #include "utils/memory.hpp"
 #include "utils/vector.hpp"
 #include "utils/string.hpp"
@@ -136,6 +138,29 @@ int test_vector()
 	for (const auto element: vector)
 	{
 		result = 0;
+	}
+
+	vector.push_back(55);
+	vector.push_back(65);
+	vector.push_back(75);
+
+	vector.erase(1);
+
+	i = 0;
+
+	for (const auto element : vector)
+	{
+		if (i == 0)
+		{
+			result = element == 55;
+		}
+
+		if (i == 1)
+		{
+			result = element == 75;
+		}
+
+		i++;
 	}
 
 	END_TEST(result)

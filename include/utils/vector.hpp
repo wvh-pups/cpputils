@@ -171,6 +171,21 @@ namespace utl
 			return m_size;
 		}
 
+		void erase(const unsigned int index)
+		{
+			if (index > m_size || index == 0)
+			{
+				return;
+			}
+
+			for (int i = index; i < m_size - 1; i++)
+			{
+				m_data[i] = m_data[i + 1];
+			}
+
+			m_size--;
+		}
+
 		T& operator[](unsigned int index)
 		{
 			return get(index);
