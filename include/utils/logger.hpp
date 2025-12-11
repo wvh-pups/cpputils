@@ -5,7 +5,6 @@
 
 namespace utl
 {
-
 	class string;
 
 	// works kinda like the printf function
@@ -15,15 +14,33 @@ namespace utl
 	template <typename... Args>
 	void println(const char* str, Args... args)
 	{
-		char* formatted_string = new char[strlen(str) * 8];
+		int formatted_str_length;
 
-		snprintf(formatted_string, str, args...);
+		if (strlen(str) * 8 > 64)
+		{
+			formatted_str_length = strlen(str) * 8;
+		}
+		else
+		{
+			formatted_str_length = 64;
+		}
+
+		char* formatted_string = new char[formatted_str_length];
+
+		sprintf(formatted_string, str, args...);
 
 		printf("%s\n", formatted_string);
 
 		fflush(stdout);
 
 		delete[] formatted_string;
+	}
+
+	// explicit println call with variadic arguments
+	template <typename... Args>
+	void printv(const char* str, Args... args)
+	{
+		println(str, args...);
 	}
 
 	// just prints a string without any variadic arguments
@@ -51,6 +68,9 @@ namespace utl
 	// this class is used by the log() function
 	class Logger_
 	{
+
+		friend class LoggingHandler;
+
 		// [INFO]
 		static const char* s_info_prefix;
 
@@ -64,15 +84,50 @@ namespace utl
 		static const char* s_dbg_prefix;
 
 		// returns something like [17:25:16] in UTC
-		// the result string is always 10 chars long excluding terminating character
-		// returns a string which is your responsibility
+		// resulting string is your responsibility
 		static char* get_formatted_time();
+
+		// returns formatted time without the braces
+		// 17:25:16
+		static char* get_formatted_time_new();
 
 	public:
 
 		// formats string by adding time and log level at the start.
 		// the result string is your responsibility
 		static char* format_log(const char* base_str, LogLevel level);
+		static char* format_log(const char* base_str, const char* id, LogLevel level);
+
+	};
+
+	// based on the Logger_ class
+	// allows for logging functions with an "ID"
+	class LoggingHandler
+	{
+		// string, owned by this class
+		char* m_id;
+
+	public:
+
+		LoggingHandler();
+		LoggingHandler(const char* id);
+
+		LoggingHandler(const LoggingHandler& other);
+		LoggingHandler(LoggingHandler&& other) noexcept;
+
+		LoggingHandler& operator=(const LoggingHandler& other);
+		LoggingHandler& operator=(LoggingHandler&& other) noexcept;
+
+		~LoggingHandler();
+
+		const char* GetID() const
+		{
+			return m_id;
+		}
+
+		void log(const char* str, LogLevel level) const;
+		void log(const string& str, LogLevel level) const;
+
 	};
 
 }

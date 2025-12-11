@@ -282,6 +282,10 @@ DECLARE_TEST(logger)
 	WAIT(1);
 	utl::log("this is a very long string for testing, please be careful", utl::Debug);
 
+	utl::LoggingHandler logger("LoggerTest");
+
+	logger.log("Does this work??? LoggerTest", utl::Debug);
+
 	result = 1;
 
 END_TEST(result)
