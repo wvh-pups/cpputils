@@ -11,6 +11,7 @@
 #include "utils/array.hpp"
 #include "utils/logger.hpp"
 #include "utils/index.hpp"
+#include "utils/option.hpp"
 
 INDEXABLE_DECL(int)
 INDEXABLE_IMPL(int)
@@ -135,7 +136,7 @@ int test_vector()
 
 	vector.clear();
 
-	for (const auto element: vector)
+	for (const auto _: vector)
 	{
 		result = 0;
 	}
@@ -292,7 +293,6 @@ END_TEST(result)
 
 DECLARE_TEST(index)
 
-	int test_number = 25;
 	int_index_add(utl::Indexable_<int>(25, "test"));
 
 	auto* test_ptr = int_index_get("test");
@@ -308,14 +308,41 @@ DECLARE_TEST(index)
 
 END_TEST(result)
 
+namespace
+{
+	int foreignInt = 35;
+
+	int& fallbackFunction(const utl::option<int>&)
+	{
+		return foreignInt;
+	}
+}
+
+DECLARE_TEST(option)
+
+	utl::option<int> notInt;
+
+	int value = notInt.unwrap_or_else(fallbackFunction);
+
+	utl::option<float> maybeFloat = 3.5f;
+
+	float Float = maybeFloat.unwrap();
+
+	std::cout << "Float = " << Float << "; notInt value: " << value << std::endl;
+
+END_TEST(result)
+
 int main()
 {
-	PRINT("Testing c++ utils...");
+	PRINT("Testing c++utils...");
 
 	ADD_TEST(vector);
 	ADD_TEST(string);
 	ADD_TEST(memory);
 	ADD_TEST(array);
 	ADD_TEST(index);
+	ADD_TEST(option);
+
+	// should always be the last
 	ADD_TEST(logger);
 }

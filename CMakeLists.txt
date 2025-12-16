@@ -4,11 +4,11 @@ project(cpp-utils CXX C)
 set(CMAKE_C_STANDARD 99)
 set(CMAKE_CXX_STANDARD 11)
 
-set(CMAKE_C_FLAGS "-Wall -static")
+set(CMAKE_C_FLAGS "-Wall -Wextra -Werror -pedantic -static")
 set(CMAKE_C_FLAGS_DEBUG "-g")
 set(CMAKE_C_FLAGS_RELEASE "-O3")
 
-set(CMAKE_CXX_FLAGS "-Wall -static")
+set(CMAKE_CXX_FLAGS "-Wall -Wextra -Werror -pedantic -static")
 set(CMAKE_CXX_FLAGS_DEBUG "-g")
 set(CMAKE_CXX_FLAGS_RELEASE "-O3")
 
@@ -33,6 +33,8 @@ add_library(c++utils SHARED
         include/utils/logger.hpp
         src/index.cpp
         include/utils/index.hpp
+        src/option.cpp
+        include/utils/option.hpp
 )
 
 target_include_directories (c++utils PUBLIC "${CMAKE_CURRENT_LIST_DIR}/include")

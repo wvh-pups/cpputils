@@ -24,23 +24,6 @@ namespace utl
 			m_capacity = 1;
 		}
 
-		// cool constructor
-		// example: utl::vector<int>( {45, 16, 30} )
-		explicit vector(T array[])
-		{
-			unsigned int length = sizeof(array) / sizeof(*array);
-
-			m_data = new T[length];
-
-			for (unsigned int i = 0; i < length; i++)
-			{
-				m_data[i] = array[i];
-			}
-
-			m_size = length;
-			m_capacity = length;
-		}
-
 		~vector()
 		{
 			delete[] m_data;
@@ -62,7 +45,7 @@ namespace utl
 			m_capacity = other.m_capacity;
 		}
 
-		vector(vector&& other) noexcept : m_data(other.m_data), m_capacity(other.m_capacity), m_size(other.m_size)
+		vector(vector&& other) noexcept : m_data(other.m_data), m_size(other.m_size), m_capacity(other.m_capacity)
 		{
 			other.m_data = nullptr;
 			other.m_size = 0;
@@ -116,7 +99,7 @@ namespace utl
 		{
 			T* temp = new T[m_capacity + size];
 
-			for (int i = 0; i < m_size; i++)
+			for (unsigned int i = 0; i < m_size; i++)
 			{
 				temp[i] = m_data[i];
 			}
@@ -178,7 +161,7 @@ namespace utl
 				return;
 			}
 
-			for (int i = index; i < m_size - 1; i++)
+			for (unsigned int i = index; i < m_size - 1; i++)
 			{
 				m_data[i] = m_data[i + 1];
 			}
